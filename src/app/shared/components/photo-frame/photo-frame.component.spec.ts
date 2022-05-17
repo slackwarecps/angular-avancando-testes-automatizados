@@ -1,5 +1,4 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { faTicketAlt } from '@fortawesome/free-solid-svg-icons';
 import { PhotoFrameComponent } from './photo-frame.component';
 import { PhotoFrameModule } from './photo-frame.module';
 
@@ -9,7 +8,7 @@ describe(PhotoFrameComponent.name, () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PhotoFrameModule],
+      imports: [PhotoFrameModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PhotoFrameComponent);
@@ -23,30 +22,29 @@ describe(PhotoFrameComponent.name, () => {
   it(`#${PhotoFrameComponent.prototype.like.name}
     should trigger (@Output liked) once when called
     multiple times within debounce time`, fakeAsync(() => {
-    fixture.detectChanges();
-    let times = 0;
-    component.liked.subscribe(() => times++);
-    component.like();
-    component.like();
-    tick(500);
-    expect(times).toBe(1);
+      fixture.detectChanges();
+      let times = 0;
+      component.liked.subscribe(() => times++);
+      component.like();
+      component.like();
+      tick(500);
+      expect(times).toBe(1);
   }));
 
   it(`#${PhotoFrameComponent.prototype.like.name}
     should trigger (@Output liked) two times when
     called outside debounce time`, fakeAsync(() => {
-    fixture.detectChanges();
-    let times = 0;
-    component.liked.subscribe(() => times++);
-    component.like();
-    tick(500);
-    component.like();
-    expect(times).toBe(2);
-  }));
+      fixture.detectChanges();
+      let times = 0;
+      component.liked.subscribe(() => times++);
+      component.like();
+      tick(500);
+      component.like();
+      tick(500);
+      expect(times).toBe(2);
+    }));
 
-  it(`DEVE mostrar o numero de likes
-  QUANDO clicado
-  `, () => {
+  it(`(D) Should display number of likes when (@Input likes) is incremented`, () => {
     fixture.detectChanges();
     component.likes++;
     fixture.detectChanges();
@@ -54,13 +52,21 @@ describe(PhotoFrameComponent.name, () => {
     expect(element.textContent.trim()).toBe('1');
   });
 
-  it(`QUANDO clicado o LIKE DEVE ter os atributos de acessibilidade`, () => {
+  it(`(D) Should update aria-label when (@Input likes) is incremented`, () => {
+    fixture.detectChanges();
+    component.likes++;
+    fixture.detectChanges();
+    const element: HTMLElement = fixture.nativeElement.querySelector('span');
+    expect(element.getAttribute('aria-label')).toBe('1: people liked');
+  });
+
+  it(`(D) Should have aria-label with 0 (@Input likes)`, () => {
     fixture.detectChanges();
     const element: HTMLElement = fixture.nativeElement.querySelector('span');
     expect(element.getAttribute('aria-label')).toBe('0: people liked');
   });
 
-  it(`QUANDO iniciado DEVE mostrar src e descricao correta na imagem`, () => {
+  it(`(D) Should display image with src and description when bound to properties`, () => {
     const description = 'some description';
     const src = 'http://somesite.com/img.jpg';
     component.src = src;
@@ -68,5 +74,6 @@ describe(PhotoFrameComponent.name, () => {
     fixture.detectChanges();
     const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
     expect(img.getAttribute('src')).toBe(src);
+    expect(img.getAttribute('alt')).toBe(description);
   });
 });
