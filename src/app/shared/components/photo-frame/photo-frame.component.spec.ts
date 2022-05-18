@@ -1,4 +1,3 @@
-import { LikeWidgetComponent } from './../like-widget/like-widget.component';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { PhotoFrameComponent } from './photo-frame.component';
 import { PhotoFrameModule } from './photo-frame.module';
@@ -9,7 +8,7 @@ describe(PhotoFrameComponent.name, () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PhotoFrameModule],
+      imports: [PhotoFrameModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PhotoFrameComponent);
@@ -23,27 +22,27 @@ describe(PhotoFrameComponent.name, () => {
   it(`#${PhotoFrameComponent.prototype.like.name}
     should trigger (@Output liked) once when called
     multiple times within debounce time`, fakeAsync(() => {
-    fixture.detectChanges();
-    let times = 0;
-    component.liked.subscribe(() => times++);
-    component.like();
-    component.like();
-    tick(500);
-    expect(times).toBe(1);
+      fixture.detectChanges();
+      let times = 0;
+      component.liked.subscribe(() => times++);
+      component.like();
+      component.like();
+      tick(500);
+      expect(times).toBe(1);
   }));
 
   it(`#${PhotoFrameComponent.prototype.like.name}
     should trigger (@Output liked) two times when
     called outside debounce time`, fakeAsync(() => {
-    fixture.detectChanges();
-    let times = 0;
-    component.liked.subscribe(() => times++);
-    component.like();
-    tick(500);
-    component.like();
-    tick(500);
-    expect(times).toBe(2);
-  }));
+      fixture.detectChanges();
+      let times = 0;
+      component.liked.subscribe(() => times++);
+      component.like();
+      tick(500);
+      component.like();
+      tick(500);
+      expect(times).toBe(2);
+    }));
 
   it(`(D) Should display number of likes when (@Input likes) is incremented`, () => {
     fixture.detectChanges();
@@ -76,35 +75,5 @@ describe(PhotoFrameComponent.name, () => {
     const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
     expect(img.getAttribute('src')).toBe(src);
     expect(img.getAttribute('alt')).toBe(description);
-  });
-
-  it(`(D) Should display number of likes when clicked`, (done) => {
-    fixture.detectChanges();
-    component.liked.subscribe(() => {
-      component.likes++;
-      fixture.detectChanges();
-      const counterEl: HTMLElement = fixture.nativeElement.querySelector('.like-counter');
-      expect(counterEl.textContent.trim()).toBe('1');
-      done();
-    });
-    const LikeWidgetContainerEl: HTMLElement =
-      fixture.nativeElement.querySelector('.like-widget-container');
-    LikeWidgetContainerEl.click();
-  });
-
-  it(`(D) Should display number of likes when ENTER key is pressed `, (done) => {
-    fixture.detectChanges();
-    component.liked.subscribe(() => {
-      component.likes++;
-      fixture.detectChanges();
-      const counterEl: HTMLElement = fixture.nativeElement.querySelector('.like-counter');
-      expect(counterEl.textContent.trim()).toBe('1');
-      done();
-    });
-
-    const LikeWidgetContainerEl: HTMLElement =
-      fixture.nativeElement.querySelector('.like-widget-container');
-    const event = new KeyboardEvent('keyup', { key: 'Enter' });
-    LikeWidgetContainerEl.dispatchEvent(event);
   });
 });

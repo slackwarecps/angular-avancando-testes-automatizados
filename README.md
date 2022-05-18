@@ -15,3 +15,11 @@ Controle de tempo com a função tick
 Teste de integração com o DOM
 Teste de atributos
 Testando a acessibilidade
+
+# parte tres
+
+Simulação de cliques
+Emissão de eventos de UI
+Combinando dois eventos em um através de diretiva
+Teste de diretiva
+Diferença entre debugElemententre e nativeElement
