@@ -23,3 +23,9 @@ Emissão de eventos de UI
 Combinando dois eventos em um através de diretiva
 Teste de diretiva
 Diferença entre debugElemententre e nativeElement
+
+# parte quatro
+
+Os cuidados com ngOnChanges
+Diferentes abordagens para testar ngOnChanges
+Criar SimpleChanges programaticamente
