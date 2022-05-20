@@ -30,7 +30,7 @@ Os cuidados com ngOnChanges
 Diferentes abordagens para testar ngOnChanges
 Criar SimpleChanges programaticamente
 
-#Parte Final
+# Parte Final
 
 Testes de componentes com escopo de página
 Spy com resposta programada
